@@ -21,7 +21,7 @@ minimize objectif : epsilon;
 
 data d.dat;
 
-#subject to critereP{i in anglesP} : -epsilon <= (sum{j in nombres}x[j]*d[j,i])-1 <= epsilon;
+#subject to criterePbidon{i in anglesP} : -epsilon <= (sum{j in nombres}x[j]*d[j,i])-1 <= epsilon;
 subject to critereP1{i in anglesP} : (sum{j in nombres}x[j]*d[i,j])-1-epsilon <= 0;
 subject to critereP2{i in anglesP} : 0 <= epsilon+(sum{j in nombres}x[j]*d[i,j])-1 ;
 
