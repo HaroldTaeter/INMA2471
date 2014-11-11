@@ -1,4 +1,9 @@
-function diagramme()
+function diagramme(tau)
+
+if nargin == 0
+    tau = 0;
+end
+
 theta = pi*(0:90)/180;
 N = 40;
 r = (1:N)/10;
@@ -12,14 +17,12 @@ for i = 1:40
 end
 
 X=load('results.txt');
-%size(X)
+Xtrue = X.*(1+rand(size(X))*2*tau-tau);
 D=zeros(1,91);
 for i = 1:91   
-    D(i)=(d(:,i)'*X);
+    D(i)=(d(:,i)'*Xtrue);
     
 end
-
 plot(0:90,D);
-%csvwrite('d.csv',d');
 end
 
