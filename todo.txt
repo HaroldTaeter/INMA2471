@@ -1,0 +1,19 @@
+
+-Robuste linéaire (pire cas)
+-Robuste non linéaire (conique de Lorentz)
+
+
+///////////////// HAROLD
+- Finish point 2 pour mercredi soir
+
+
+
+///////////////// FLORENTIN
+- Finish point 1 pour mercredi soir
+
+
+
+
+
+
+
