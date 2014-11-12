@@ -16,13 +16,15 @@ for i = 1:40
     end
 end
 
-X=load('results.txt');
+X=load('results4050.txt');
 Xtrue = X.*(1+rand(size(X))*2*tau-tau);
-D=zeros(1,91);
-for i = 1:91   
-    D(i)=(d(:,i)'*Xtrue);
-    
-end
+
+%D=zeros(1,91);
+% for i = 1:91   
+%     D(i)=(d(:,i)'*Xtrue);
+%     
+% end
+D=d'*Xtrue;
 plot(0:90,D);
 end
 
