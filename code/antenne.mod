@@ -35,7 +35,7 @@ solve;
 
 # print les variables dans un fichier
 for{i in nombres}{
-printf "%f \n", x[i] > results.txt;
+printf "%f \n", x[i] > results4050.txt;
 }
 
 
