@@ -1,4 +1,10 @@
 
+- !!! Idée: l'integrale peut s'exprimer en utilisant des fonctions de bessel, c'est plus simple et (peut être plus précis)
+	d_{i}(theta)=J_{0}(2pi*ri*cos(theta))
+
+-Robuste linéaire (pire cas)
+-Robuste non linéaire (conique de Lorentz)
+
 
 ///////////////// HAROLD
 - Finish point 2 pour mercredi soir
