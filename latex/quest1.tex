@@ -2,15 +2,13 @@
  
  Dans la première partie du travail, nous implémentons la version standard du modèle, qui ne tient pas encore compte de la robustesse. Le code \textsc{Ampl} est joint au rapport. 
  
- 
- 
- 
  \subsection*{Approximation du problème posé}
-L'approximation s'effectue en deux endroits. Dans un premier temps, les valeurs $d_{i}(\theta)$ sont calculée numériquement car on ne dispose pas d'une formule exacte pour l'intégrale. Cela constitue une première approximation mineure, on peut obtenir ces valeurs avec une précision importante. Nous avons utilisé \textsc{Matlab} et sa fonction \texttt{quad}. \red{On exprime cela comme une fonction de Bessel ??}.
+L'approximation s'effectue en deux endroits. Dans un premier temps, les valeurs $d_{i}(\theta)$ sont calculée numériquement car on ne dispose pas d'une formule exacte pour l'intégrale. Cela constitue une première approximation mineure. Nous avons utilisé \textsc{Matlab} et sa fonction \texttt{quad}. \red{On exprime cela comme une fonction de Bessel ??}.
 
 Une seconde erreur, plus remarquable, vient de la \underline{relaxation du problème}. 
 Les contraintes $|D(\theta)-1| \leq \varepsilon\text{ } \forall \theta\in [\theta_{\mathcal{P}} 90\degree]$ et $|D(\theta)| \leq \varepsilon\text{ } \forall \theta\in [0 \theta_{S}]$ cachent en fait une infinité de contraintes puisqu'il faut les appliquer pour tous les angles dans les intervals considérés.
-On relâche le problème en choisissant un nombre fini de contraintes, on applique les conditions sur un sous ensemble discret des intervals $[\theta_{\mathcal{P}} 90\degree]$ et $[0 \theta_{S}]$. En pratique, on sélectionnera un angle par degré. On se retrouve donc avec $91$ contraintes pour les angles de $0$ à $90\degree$. \red{TODO: vérifier de la manière la plus précise possible que cela est une assez bonne approximation}.
+On relâche le problème en choisissant un nombre fini de contraintes, on applique les conditions sur un sous ensemble discret des intervals $[\theta_{\mathcal{P}} 90\degree]$ et $[0 \theta_{S}]$. En pratique, nous avons sélectionné toutes les valeurs entières des angles. \red{TODO: vérifier de la manière la plus précise possible que cela est une assez bonne approximation}.
+
 
 \subsection*{Solution du cas de base}
 
@@ -18,25 +16,49 @@ On relâche le problème en choisissant un nombre fini de contraintes, on appliq
 \subsection*{Variation des paramètres $\theta_{P}$ et $\theta_{S}$}
 On s'attend logiquement a une moins bonne approximation lorsque les deux valeurs se rapprochent. En effet, cela augmente le nombre de contraintes et donc réduit l'espace admissible pour minimiser $\varepsilon$. Plus graphiquement, on réduit la largeur de la bande de transition de l'échelon du diagramme et cela rend plus difficile le passage de la valeur $0$ à la valeur $1$. La figure~\ref{chgmtparam} montre ce phénomène. Il est visible que les oscillations sont plus grandes lorsque l'on rapproche les paramètres. Pour le quantifier, on dresse la table des valeurs optimales de la bande $\varepsilon$.
 
+
+
 \begin{tabular}{|c|c|c|}
 \hline 
 $\theta_{S}$ $[\degree]$ & $\theta_{P}$ $[\degree]$ & $\varepsilon^{*}$ \\ 
 \hline 
-40 & 50 & 0.02512647508 \\ 
+40 & 50 & 0.01716135157 \\ 
 \hline 
-42 & 48 & 0.05265152209 \\ 
+42 & 48 & 0.0736852368 \\ 
 \hline 
-43 & 47 & 0.1032455449 \\ 
+43 & 47 &  \\ 
 \hline 
-44 & 45 & 0.1634615725 \\
+44 & 45 & 0.1180329256 \\
 \hline 
-40 & 45 & 0.07309577599 \\
+40 & 45 & \\
 \hline 
-40 & 42 & 0.1636404621 \\
+40 & 42 &  \\
 \hline 
-48 & 50 &  0.131448618 \\
+48 & 50 & \\
 \hline 
 \end{tabular} 
+
+
+
+%\begin{tabular}{|c|c|c|}
+%\hline 
+%$\theta_{S}$ $[\degree]$ & $\theta_{P}$ $[\degree]$ & $\varepsilon^{*}$ \\ 
+%\hline 
+%40 & 50 & 0.02512647508 \\ 
+%\hline 
+%42 & 48 & 0.05265152209 \\ 
+%\hline 
+%43 & 47 & 0.1032455449 \\ 
+%\hline 
+%44 & 45 & 0.1634615725 \\
+%\hline 
+%40 & 45 & 0.07309577599 \\
+%\hline 
+%40 & 42 & 0.1636404621 \\
+%\hline 
+%48 & 50 &  0.131448618 \\
+%\hline 
+%\end{tabular} 
 
 
 
