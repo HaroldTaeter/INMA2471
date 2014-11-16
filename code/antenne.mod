@@ -1,12 +1,13 @@
 reset; 
-param thetaS:= 44; 
-param thetaP:= 45;
-param N:= 40;
 
-set angles := 0 .. 90;
-set anglesP := thetaP .. 90;
-set anglesS := 0 .. thetaS;
-set nombres := 1..N;
+param thetaS; 
+param thetaP;
+set angles;
+set anglesP;
+set anglesS;
+set nombres;
+
+data antenne.dat;
 
 param rayons{nombres};
 for {i in nombres}{
@@ -19,7 +20,7 @@ var x{nombres};
 
 minimize objectif : epsilon;
 
-data dlong.dat;
+data d.dat;
 
 #subject to criterePbid{i in anglesP} : -epsilon <= (sum{j in nombres}x[j]*d[j,i])-1 <= epsilon;
 subject to critereP1{i in anglesP} : (sum{j in nombres}x[j]*d[j,i])-1-epsilon <= 0;
@@ -32,10 +33,9 @@ subject to critereS2{i in anglesS} : (sum{j in nombres}x[j]*d[j,i])-epsilon <=0;
 option solver cplex; 
 solve; 
 
-
 # print les variables dans un fichier
 for{i in nombres}{
-printf "%f \n", x[i] > 4445.txt;
+printf "%f \n", x[i] > 4050.txt;
 }
 
 

@@ -1,1 +1,38 @@
 \section*{Question 3}
+A la lumière des résultats présentés précédemment, il est clair qu'on va chercher à établir une version plus robuste du problème. On se propose ici de présenter une première formulation.\\
+Gardant en tête que les valeurs $x_i$ vont être entachées d'erreurs, on a le problème d'optimisation suivant :
+\begin{align*}
+\min \epsilon &\\
+\text{s.c.} & \quad \sum_{i=1}^{N}{(1+\xi_i)x_i d_i(\theta)}-1 \leq \epsilon, \quad \theta \in [\theta_P,90\degree],\\
+ & \quad \sum_{i=1}^{N}{(1+\xi_i)x_i d_i(\theta)}-1 \geq -\epsilon, \quad \theta \in [\theta_P,90\degree],\\
+ & \quad \sum_{i=1}^{N}{(1+\xi_i)x_i d_i(\theta)} \leq \epsilon, \quad \theta \in [0\degree,\theta_S],\\
+ & \quad \sum_{i=1}^{N}{(1+\xi_i)x_i d_i(\theta)} \geq -\epsilon, \quad \theta \in [0\degree,\theta_S],
+\end{align*}
+dans lequel les données $\xi_i$ sont des réalisations d'une variable aléatoire.\\
+Afin de nous débarasser de ces valeurs aléatoires, nous allons reformuler nos contraintes en nous plaçant dans le pire cas.\\
+Occupons-nous tout d'abord de la première contrainte : $$\sum_{i=1}^{N}{(1+\xi_i)x_i d_i(\theta)}-1 \leq \epsilon, \quad \theta \in [\theta_P,90\degree].$$
+Celle-ci peut se réécrire $$\sum_{i=1}^{N}{\xi_i x_i d_i(\theta)} \leq 1+\epsilon-\sum_{i=1}^{N}{x_i d_i(\theta)}, \quad \theta \in [\theta_P,90\degree].$$
+Le terme $\sum_{i=1}^{N}{\xi_i x_i d_i(\theta)}$ est responsable de la différence entre le véritable diagramme et celui calculé sur base du problème linéaire. Le pire cas consiste donc à choisir les $\xi_i$ qui maximisent ce terme. On va minimiser l'erreur qu'on peut obtenir dans le pire des cas. Afin de se placer dans cette situation, on écrit la contrainte de la manière suivante : $$\Big(\max_{\xi_i} \sum_{i=1}^{N}{\xi_i x_i d_i(\theta)}\Big) \leq 1+\epsilon-\sum_{i=1}^{N}{x_i d_i(\theta)}, \quad \theta \in [\theta_P,90\degree],$$ tout en gardant à l'esprit que $$-\tau \leq \xi_i \leq \tau, \quad \forall i.$$
+Cette contrainte peut donc être vue comme un problème d'optimisation et donc transformée en utilisant le principe de dualité forte. Après application de ce principe\footnote{\red{Je ne suis pas sur que tout ce qui était écrit sur la feuille de flo était ok. Après dualité forte, on a $\min d_i^T x_i \leq c_i$. Ca devrait pas être un $\geq$ ? Et on maximisait sur $a_i$, maintenant on minimise sur $x$, un peu bizarre. A la fin, on met $d_i^T x_i = c_i$, est-ce que c'est bien un $=$ ? (et quel interet de mettre un indice à $c$ ?)}}, la contrainte se réécrit : $$\Big(\min_{y_i\red{?}} \tau \sum_{j=1}^{2N}{y_i}\Big) \leq 1+\epsilon-\sum_{i=1}^{N}{x_i d_i(\theta)}, \quad \theta \in [\theta_P,90\degree],$$ 
+$$\begin{pmatrix}
+y_1-y_{N+1} & y_2-y_{N+2} & \hdots & y_N-y_{2N}
+\end{pmatrix}
+=
+\begin{pmatrix}
+x_1 d_1(\theta) & x_2 d_2(\theta) & \hdots & x_N d_N(\theta)
+\end{pmatrix},
+\quad \theta \in [\theta_P,90\degree],$$
+$$y_i \geq 0, \quad \forall i.$$
+En d'autres termes, il existe $y \in \mathbb{R}_{+}^{2N}$ tel que
+\begin{align*}
+\tau \sum_{j=1}^{2N}{y_i} & = 1+\epsilon-\sum_{i=1}^{N}{x_i d_i(\theta)}, \quad \theta \in [\theta_P,90\degree],\\
+\begin{pmatrix}
+y_1-y_{N+1} & y_2-y_{N+2} & \hdots & y_N-y_{2N}
+\end{pmatrix}
+& =
+\begin{pmatrix}
+x_1 d_1(\theta) & x_2 d_2(\theta) & \hdots & x_N d_N(\theta)
+\end{pmatrix},
+\quad \theta \in [\theta_P,90\degree].
+\end{align*}
+On ajoute donc les variables $y_i$ dans le modèle et on peut alors reformuler la contrainte de départ de la manière mentionnée ci-dessus. En effectuant la démarche ci-dessus pour les quatre sortes de contraintes du modèle de départ, on se retrouver avec un modèle plus robuste puis qu'il se base toujours sur le pire cas.

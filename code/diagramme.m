@@ -1,30 +1,20 @@
-function diagramme(tau)
+function d = diagrammeM(n)
+format long;
 
-if nargin == 0
-    tau = 0;
-end
-
-theta = pi*(0:90)/180;
+theta = linspace(0,pi/2,n);
 N = 40;
 r = (1:N)/10;
 
-d = zeros(N,91);
+d = zeros(N,n);
 
 for i = 1:40
-    for j = 1:91
+    for j = 1:n
         d(i,j) = 0.5*quad(@(phi)(cos(2*pi*r(i)*cos(theta(j))*cos(phi))),0,2*pi);
     end
 end
 
-X=load('results4050.txt');
-Xtrue = X.*(1+rand(size(X))*2*tau-tau);
-
-%D=zeros(1,91);
-% for i = 1:91   
-%     D(i)=(d(:,i)'*Xtrue);
-%     
-% end
-D=d'*Xtrue;
-plot(0:90,D);
+%dlmwrite('d.dat',[404 linspace(0,90,n); (1:40)' d],'precision','%.10f');
+%dlmwrite('antenne.dat',[(1:40) linspace(0,90,n)],'precision','%.10f');
+%dlmwrite('d.txt',d,'precision','%.10f');
 end
 
